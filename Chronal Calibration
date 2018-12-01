@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+
+#define NRM 5000000
+
+using namespace std;
+
+int nr;
+
+int n;
+vector <int> s;
+
+int mi = -1, vmi;
+
+int main()
+{
+    s.push_back(0);
+    for(int i = 1; n != 80915; i++)
+    {
+        cin >> n;
+        s.push_back(s.back() + n);
+        if(s[i] == 0)
+        {
+            mi = i;
+            vmi = s[i];
+        }
+        nr++;
+    }
+    if(mi != -1)
+    {
+        cout << vmi << "\n";
+        return 0;
+    }
+    int fs = s.back();
+    for(int i = 0; i < nr; i++)
+        for(int j = i + 1; j < nr; j++)
+            if(abs(s[j] - s[i]) % fs == 0)
+            {
+                int m = abs(s[j] - s[i]) / fs * nr;
+                if(s[i] < s[j])
+                    m += i;
+                else
+                    m += j;
+                if(m <= mi || mi == -1)
+                    mi = m, vmi = max(s[i], s[j]);
+            }
+    cout << fs << " " << vmi << "\n";
+    return 0;
+}
